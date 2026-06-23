@@ -1,0 +1,18 @@
+export type WeaponAffinity =
+  | "Slash"
+  | "Blunt"
+  | "Thrust"
+  | "Handgun"
+  | "Spread"
+  | "Penetrate"
+  | "Fire"
+  | "Ice"
+  | "Elec"
+  | "Force"
+  | "Expel"
+  | "Death"
+  | "Mystic"
+  | "Nerve"
+  | "Mind"
+  | "Almighty"
+  ;
