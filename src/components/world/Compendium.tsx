@@ -17,7 +17,7 @@ const Compendium = () => {
       <NumberSpinner
         label="Demons Registered"
         value={value}
-        onValueChange={(val) => setValue(val ?? 0)}
+        onChange={(val) => setValue(val ?? 0)}
         min={0}
         max={337}
       />

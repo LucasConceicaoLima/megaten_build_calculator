@@ -1,8 +1,8 @@
 export type DemonStats = {
-    level: number;
-    hp: number;
-    mp: number;
+    demonLevel: number;
+    demonHp: number;
+    demonMp: number;
     demonXp: number;
-    strength: number;
-    magic: number;
+    demonStrength: number;
+    demonMagic: number;
 };

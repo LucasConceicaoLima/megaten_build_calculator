@@ -9,9 +9,12 @@ type DemonStatsContextType = {
 const DemonStatsContext = createContext<DemonStatsContextType | undefined>(undefined);
 
 const initialDemonStats: DemonStats = {
-    level: 1,
-    hp: 100,
-    mp: 50,
+    demonLevel: 1,
+    demonHp: 100,
+    demonMp: 50,
+    demonXp: 0,
+    demonStrength: 0,
+    demonMagic: 0,
 };
 
 export const DemonStatsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

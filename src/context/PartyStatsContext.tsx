@@ -9,12 +9,13 @@ type PartyStatsContextType = {
 const PartyStatsContext = createContext<PartyStatsContextType | undefined>(undefined);
 
 const initialPartyStats: PartyStats = {
-  strength: 1,
-  magic: 1,
-  vitality: 1,
-  intelligence: 1,
-  speed: 1,
-  luck: 1,
+  partyStrength: 1,
+  partyMagic: 1,
+  partyVitality: 1,
+  partyIntelligence: 1,
+  partySpeed: 1,
+  partyLuck: 1,
+  partyXp: 1,
 };
 
 export const PartyStatsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

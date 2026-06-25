@@ -1,9 +1,9 @@
 export type PartyStats = {
-    strength: number;
-    magic: number;
-    vitality: number;
-    intelligence: number;
-    speed: number;
-    luck: number;
-    xp: number;
+    partyStrength: number;
+    partyMagic: number;
+    partyVitality: number;
+    partyIntelligence: number;
+    partySpeed: number;
+    partyLuck: number;
+    partyXp: number;
 };

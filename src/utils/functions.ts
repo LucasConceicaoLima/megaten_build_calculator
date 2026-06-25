@@ -184,22 +184,22 @@ export const playerStatsLabels: Record<keyof PlayerStats, string> = {
 };
 
 export const demonStatsLabels: Record<keyof DemonStats, string> = {
-  level: "Level",
-  hp: "Max HP",
-  mp: "Max MP",
+  demonLevel: "Level",
+  demonHp: "Max HP",
+  demonMp: "Max MP",
   demonXp: "Experience",
-  strength: "Strength",
-  magic: "Magic",
+  demonStrength: "Strength",
+  demonMagic: "Magic",
 };
 
 export const partyStatsLabels: Record<keyof PartyStats, string> = {
-  strength: "Strength",
-  magic: "Magic",
-  vitality: "Vitality",
-  intelligence: "Intelligence",
-  speed: "Speed",
-  luck: "Luck",
-  xp: "Experience",
+  partyStrength: "Strength",
+  partyMagic: "Magic",
+  partyVitality: "Vitality",
+  partyIntelligence: "Intelligence",
+  partySpeed: "Speed",
+  partyLuck: "Luck",
+  partyXp: "Experience",
 };
 
 export const playerStatsFormatters: Partial<
