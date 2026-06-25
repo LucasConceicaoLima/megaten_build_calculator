@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Megaten Equipment Calculator API on AWS Lambda
+
+Parameters:
+  FirebaseServiceAccountBase64:
+    Type: String
+    NoEcho: true
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 15
+    MemorySize: 512
+    Architectures:
+      - arm64
+    Environment:
+      Variables:
+        NODE_ENV: production
+        FIREBASE_SERVICE_ACCOUNT_BASE64: !Ref FirebaseServiceAccountBase64
+
+Resources:
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: megaten-equipment-calculator-api
+      Handler: dist/lambda.handler
+      CodeUri: .
+      Policies:
+        - AWSLambdaBasicExecutionRole
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowOrigins:
+            - "http://localhost:5173"
+            - "https://dj1y4jaxpydgc.cloudfront.net"
+          AllowMethods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          AllowHeaders:
+            - "*"
+          AllowCredentials: true
+
+Outputs:
+  ApiUrl:
+    Description: Lambda Function URL
+    Value: !GetAtt ApiFunctionUrl.FunctionUrl
