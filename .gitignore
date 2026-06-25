@@ -77,3 +77,6 @@ docker-data/
 
 server/src/scripts/
 server/src/config/
+
+serviceAccount.json
+.aws-sam
