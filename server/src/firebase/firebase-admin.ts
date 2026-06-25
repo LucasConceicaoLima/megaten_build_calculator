@@ -1,10 +1,31 @@
 import * as admin from 'firebase-admin';
 import { ServiceAccount } from 'firebase-admin';
 
-import * as serviceAccount from '../config/serviceAccountKey.json';
+let firebaseApp: admin.app.App | null = null;
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount as ServiceAccount),
-});
+function getFirebaseApp() {
+  if (firebaseApp) {
+    return firebaseApp;
+  }
 
-export const firestore = admin.firestore();
+  const serviceAccountBase64 = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64;
+
+  if (!serviceAccountBase64) {
+    throw new Error('FIREBASE_SERVICE_ACCOUNT_BASE64 is not defined');
+  }
+
+  const serviceAccountJson = Buffer.from(
+    serviceAccountBase64,
+    'base64',
+  ).toString('utf8');
+
+  const serviceAccount = JSON.parse(serviceAccountJson) as ServiceAccount;
+
+  firebaseApp = admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+
+  return firebaseApp;
+}
+
+export const firestore = admin.firestore(getFirebaseApp());
