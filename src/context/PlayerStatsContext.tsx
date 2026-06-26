@@ -276,68 +276,82 @@ export const PlayerStatsProvider: React.FC<{
   );
 
   const effectiveStats = useMemo(() => {
-    console.group("PlayerStats Recalculation");
+  const isDev = import.meta.env.DEV;
 
+  if (isDev) {
+    console.group("PlayerStats Recalculation");
     console.log("baseStats", baseStats);
     console.log("bonusStats", bonusStats);
+  }
 
-    const result: PlayerStats = {
-      ...baseStats,
-    };
+  const result: PlayerStats = {
+    ...baseStats,
+  };
 
-    Object.entries(bonusStats).forEach(
-      ([sourceName, sourceStats]) => {
+  Object.entries(bonusStats).forEach(
+    ([sourceName, sourceStats]) => {
+      if (isDev) {
         console.group(`Source: ${sourceName}`);
+      }
 
-        Object.entries(sourceStats).forEach(
-          ([key, value]) => {
-            const existsInPlayer =
-              key in baseStats;
+      Object.entries(sourceStats).forEach(
+        ([key, value]) => {
+          const existsInPlayer = key in baseStats;
 
-            if (!existsInPlayer) {
+          if (!existsInPlayer) {
+            if (isDev) {
               console.error(
                 `[INVALID STAT] "${key}" exists in bonus source "${sourceName}" but does not exist in PlayerStats`
               );
-
-              return;
             }
 
-            if (typeof value !== "number") {
+            return;
+          }
+
+          if (typeof value !== "number") {
+            if (isDev) {
               console.warn(
                 `[NON NUMERIC] ${key}`,
                 value
               );
-
-              return;
             }
 
-            const previous =
-              (result as any)[key] ?? 0;
+            return;
+          }
 
-            const next =
-              previous + value;
+          const previous =
+            (result as any)[key] ?? 0;
 
+          const next =
+            previous + value;
+
+          if (isDev) {
             console.log(
               `${key}: ${previous} + ${value} = ${next}`
             );
-
-            (result as any)[key] = next;
           }
-        );
 
+          (result as any)[key] = next;
+        }
+      );
+
+      if (isDev) {
         console.groupEnd();
       }
-    );
+    }
+  );
 
+  if (isDev) {
     console.log(
       "effectiveStats result",
       result
     );
 
     console.groupEnd();
+  }
 
-    return result;
-  }, [baseStats, bonusStats]);
+  return result;
+}, [baseStats, bonusStats]);
 
   useEffect(() => {
     localStorage.setItem(

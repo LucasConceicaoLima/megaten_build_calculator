@@ -6,17 +6,21 @@ const useDemonSkills = () => {
   const [loadingDemonSkills, setLoadingDemonSkills] = useState(true);
   const [errorDemonSkills, setErrorDemonSkills] = useState("");
 
-  // const apiUrl = import.meta.env.VITE_API_URL;
-  // const username = import.meta.env.VITE_USERNAME;
-  // const password = import.meta.env.VITE_PASSWORD;
-
   const fetchDemonSkills = async () => {
     try {
+      setLoadingDemonSkills(true);
+      setErrorDemonSkills("");
+
+      const apiUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "");
+
+      if (!apiUrl) {
+        throw new Error("VITE_API_URL is not defined");
+      }
+
       const headers = new Headers();
-      //headers.set('Authorization', 'Basic ' + btoa(${username}:${password}));
       headers.set("Content-Type", "application/json");
 
-      const response = await fetch(`http://localhost:3000/demon-skills`, {
+      const response = await fetch(`${apiUrl}/demon-skills`, {
         headers,
       });
 
@@ -37,7 +41,12 @@ const useDemonSkills = () => {
     fetchDemonSkills();
   }, []);
 
-  return { demonSkills, loadingDemonSkills, errorDemonSkills, fetchDemonSkills };
+  return {
+    demonSkills,
+    loadingDemonSkills,
+    errorDemonSkills,
+    fetchDemonSkills,
+  };
 };
 
 export default useDemonSkills;

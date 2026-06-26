@@ -6,17 +6,21 @@ const useWeapons = () => {
   const [loadingWeapons, setLoadingWeapons] = useState(true);
   const [errorWeapons, setErrorWeapons] = useState("");
 
-  // const apiUrl = import.meta.env.VITE_API_URL;
-  // const username = import.meta.env.VITE_USERNAME;
-  // const password = import.meta.env.VITE_PASSWORD;
-
   const fetchWeapons = async () => {
     try {
+      setLoadingWeapons(true);
+      setErrorWeapons("");
+
+      const apiUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "");
+
+      if (!apiUrl) {
+        throw new Error("VITE_API_URL is not defined");
+      }
+
       const headers = new Headers();
-      //headers.set('Authorization', 'Basic ' + btoa(${username}:${password}));
       headers.set("Content-Type", "application/json");
 
-      const response = await fetch(`http://localhost:3000/weapons`, {
+      const response = await fetch(`${apiUrl}/weapons`, {
         headers,
       });
 
@@ -37,7 +41,12 @@ const useWeapons = () => {
     fetchWeapons();
   }, []);
 
-  return { weapons, loadingWeapons, errorWeapons, fetchWeapons };
+  return {
+    weapons,
+    loadingWeapons,
+    errorWeapons,
+    fetchWeapons,
+  };
 };
 
 export default useWeapons;
