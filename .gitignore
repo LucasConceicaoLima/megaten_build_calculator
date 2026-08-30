@@ -75,8 +75,8 @@ docker-data/
 .env.test.local
 .env.production.local
 
-server/src/scripts/
-server/src/config/
+backend/src/scripts/
+backend/src/config/
 
 serviceAccount.json
 .aws-sam
