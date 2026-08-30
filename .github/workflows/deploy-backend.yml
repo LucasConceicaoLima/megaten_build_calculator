@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "server/**"
+      - "backend/**"
       - ".github/workflows/deploy-backend.yml"
 
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: server
+        working-directory: backend
 
     steps:
       - name: Checkout repository
@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: server/package-lock.json
+          cache-dependency-path: backend/package-lock.json
 
       - name: Install dependencies
         run: npm ci
