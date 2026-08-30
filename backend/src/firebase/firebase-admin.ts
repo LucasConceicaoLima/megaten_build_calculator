@@ -1,6 +1,5 @@
 import * as admin from 'firebase-admin';
 import { ServiceAccount } from 'firebase-admin';
-import serviceAccountDev from '../config/serviceAccountKey.json';
 
 let firebaseApp: admin.app.App | null = null;
 
@@ -12,7 +11,8 @@ function getFirebaseApp() {
   let serviceAccount: ServiceAccount;
 
   if (process.env.NODE_ENV === 'development') {
-    serviceAccount = serviceAccountDev as ServiceAccount;
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    serviceAccount = require('../config/serviceAccountKey.json') as ServiceAccount;
   } else {
     const serviceAccountBase64 = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64;
 
